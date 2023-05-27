@@ -52,6 +52,11 @@
 			switch_personalities()
 		else
 			time_personality_spent += 1
+
+		if(owner_backseat.client)
+			if(!owner.client && initialized)
+				switch_personalities()
+				got_ghost = FALSE
 	else
 		if(last_attempt+100 < world.time)
 			get_ghost()
@@ -159,7 +164,8 @@
 //	to_chat(src, "<span class='warning'>You cannot speak, your other self is controlling your body!</span>")
 	//Vagabond edit
 	if(length(message) && body)
-		to_chat(body, "You hear a strange voice in your head... \"[message]\"")
+		to_chat(body, "<b>[body.real_name]</b> says, \"[message]\"")
+		to_chat(src, "<b>YOU</b> say, \"[message]\"")
 	return
 
 /mob/living/split_personality/emote(act, m_type = null, message = null, intentional = FALSE)
